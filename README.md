@@ -1,4 +1,4 @@
-# Assignment1
+# Assignment 1: In-Network Cache
 
 In this assignment you will implement a cache for a simple key-value service.
 
