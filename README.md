@@ -48,7 +48,7 @@ Response packet from server to client:
     |       ........       |  UDP (srcPort=1234)
     +----------------------+
     | key (8 bits)         |
-    | isValid (8 bits)     |  Response header
+    | is_valid (8 bits)    |  Response header
     | value (32 bits)      |
     +----------------------+
 
@@ -82,7 +82,7 @@ Packets travel through exactly one switch between the client and the server:
 
     client <---> switch <---> server
 
-You should should implement a cache in the switch. The cache is transparent, in
+You should implement a cache in the switch. The cache is transparent, in
 that neither the server nor the client is aware of the cache. When a client
 requests a key, it sends a request packet through the switch. The switch should
 parse the request packet, to determine the key that is being requested. If
