@@ -80,7 +80,7 @@ You can override them when you start the server, e.g.
 
 Packets travel through exactly one switch between the client and the server:
 
-    client <---> switch <---> server
+    client (h2) <---> switch (s1) <---> server (h1)
 
 You should should implement a cache in the switch. The cache is transparent, in
 that neither the server nor the client is aware of the cache. When a client
@@ -126,12 +126,28 @@ both the data plane and control plane:
 - [p4app examples](https://github.com/p4lang/p4app/tree/rc-2.0.0/examples)
 - [P4 tutorial exercises](https://github.com/p4lang/tutorials/tree/p4app/p4app-exercises)
 
+## Resources
+
+You can get familiar with the P4_16 language specification:
+https://p4.org/p4-spec/docs/P4-16-v1.1.0-spec.html
+
+Registers are not part of the P4 language specfication, but are an extern in
+the
+[v1model.p4](https://github.com/p4lang/p4c/blob/a1c3e0b868d5be2c7921cc8a80cf1ea6c4aba80d/p4include/v1model.p4#L109)
+used by BMV2. For sample usage, take a look at the
+[register.p4app](https://github.com/p4lang/p4app/tree/rc-2.0.0/examples/registers.p4app)
+example.
+
+
 ## Tips
 
 - If you're changing the packet, don't forget to:
     - update the IP and UPD length fields; and
     - set the UDP checksum to 0.
 - Don't use `valid` as a header field, as it conflicts with setValid/setInvalid in P4.
+- The switch dumps sent/received packets in `/tmp/p4app-logs/s1-eth*.pcap`
+    - `eth1` is connected to h1, and `eth2` to h2
+    - you can inspect the pcaps with [wireshark](https://www.wireshark.org/)
 
 ## Running
 
