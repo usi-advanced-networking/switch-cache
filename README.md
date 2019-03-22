@@ -126,6 +126,12 @@ both the data plane and control plane:
 - [p4app examples](https://github.com/p4lang/p4app/tree/rc-2.0.0/examples)
 - [P4 tutorial exercises](https://github.com/p4lang/tutorials/tree/p4app/p4app-exercises)
 
+Specifically, for implementing IPv4 forwarding, you should look at the [control
+plane](https://github.com/p4lang/tutorials/blob/p4app/p4app-exercises/basic.p4app/main.py#L61)
+and [data
+plane](https://github.com/p4lang/tutorials/blob/p4app/p4app-exercises/basic.p4app/solution/basic.p4#L100)
+from the `basic.p4app` tutorial exercise.
+
 ## Resources
 
 You can get familiar with the P4_16 language specification:
@@ -145,9 +151,18 @@ example.
     - update the IP and UPD length fields; and
     - set the UDP checksum to 0.
 - Don't use `valid` as a header field, as it conflicts with setValid/setInvalid in P4.
+- p4app uses Mininet to connect hosts h1 and h2 to switch s1. The port numbers
+  are assigned in increasing order, so h1 is connected to s2 on port 1, and h2 on
+  port 2.
+- After you run p4app, check that it creates the directory `/tmp/p4app-logs`.
+    - If this directory does not exit, there may be a problem with your Docker installation.
 - The switch dumps sent/received packets in `/tmp/p4app-logs/s1-eth*.pcap`
     - `eth1` is connected to h1, and `eth2` to h2
     - you can inspect the pcaps with [wireshark](https://www.wireshark.org/)
+- You can also run wireshark on a single host, e.g. on host2:
+
+    ~/p4app/p4app exec m h2 tcpdump -Uw - | wireshark -ki -
+
 
 ## Running
 
